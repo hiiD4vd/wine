@@ -40,13 +40,80 @@ header {
 
 @media (max-width: 768px) {
     header {
-        padding: 1.5rem 1.5rem;
-        flex-direction: column;
-        gap: 1rem;
+        padding: 1.5rem 2rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--bg);
+        z-index: 150;
+        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        padding-top: 6rem;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+    nav.nav-open {
+        right: 0;
     }
     nav ul {
-        gap: 1.5rem;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+    }
+    nav ul li a {
+        color: var(--dark) !important;
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Nav Toggle (Bottle Burger) */
+.mobile-nav-toggle {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 200;
+    width: 32px;
+}
+
+.mobile-nav-toggle span {
+    background-color: currentColor;
+    height: 3px;
+    border-radius: 3px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mobile-nav-toggle span:nth-child(1) { width: 10px; } /* Top neck */
+.mobile-nav-toggle span:nth-child(2) { width: 14px; } /* Base neck */
+.mobile-nav-toggle span:nth-child(3) { width: 24px; } /* Shoulder */
+.mobile-nav-toggle span:nth-child(4) { width: 30px; } /* Body */
+
+.mobile-nav-toggle.is-active span:nth-child(1),
+.mobile-nav-toggle.is-active span:nth-child(4) {
+    opacity: 0;
+}
+
+.mobile-nav-toggle.is-active span:nth-child(2) {
+    width: 28px;
+    transform: translateY(7px) rotate(45deg);
+    background-color: var(--dark);
+}
+
+.mobile-nav-toggle.is-active span:nth-child(3) {
+    width: 28px;
+    transform: translateY(-7px) rotate(-45deg);
+    background-color: var(--dark);
+}
+
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: flex;
     }
 }
 
@@ -134,8 +201,20 @@ nav ul li a {
 }
 
 @media (max-width: 768px) {
+    .bg-wine-text {
+        font-size: 35vw;
+        letter-spacing: 0.05em;
+    }
     .floating-text {
         font-size: 8vw;
+    }
+    .text-memorable {
+        top: 25%;
+        left: 5%;
+    }
+    .text-journeys {
+        bottom: 25%;
+        right: 5%;
     }
 }
 

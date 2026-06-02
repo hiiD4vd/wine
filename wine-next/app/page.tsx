@@ -19,7 +19,8 @@ export default function Home() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 8; // We have 8 slides
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const totalSlides = 14; // 7 wines * 2 (duplicated)
 
   useGSAP(
     () => {
@@ -160,49 +161,76 @@ export default function Home() {
     },
     { scope: container }
   );
-
   const wines = [
     {
       img: "/wine (1).png",
       title: "Signature Rosé",
       desc: "A vibrant estate rosé with crisp notes of wild strawberry, pink grapefruit, and a hint of sea breeze.",
       price: "€182",
+      type: "ROSE",
+      tagClass: "tag-rose",
+      oldPrice: "€230.00/l",
+      fruits: "🍓 🍋 🍒",
     },
     {
       img: "/wine (2).png",
       title: "Classic Merlot",
       desc: "Estate Grown - Valley Region\n750ML - 14% ALC/VOL",
       price: "€210",
+      type: "RED",
+      tagClass: "tag-red",
+      oldPrice: "€260.00/l",
+      fruits: "🍒 🍫 🍷",
     },
     {
       img: "/wine (3).png",
       title: "Reserve Pinot Noir",
       desc: "Premium Selection - Hillside Terroir\nVintage 2021",
       price: "€245",
+      type: "RED",
+      tagClass: "tag-red",
+      oldPrice: "€300.00/l",
+      fruits: "🍇 🍓 🍂",
     },
     {
       img: "/wine (4).png",
       title: "Grand Vintage Cabernet",
       desc: "Private Reserve - Oak Barrel Aged\nVintage 2018",
       price: "€320",
+      type: "RED",
+      tagClass: "tag-red",
+      oldPrice: "€400.00/l",
+      fruits: "🍒 🪵 ☕",
     },
     {
       img: "/wine-new-1.png",
       title: "Château Vieux Robin",
       desc: "Cru Bourgeois - Médoc\nMis en Bouteille au Château",
       price: "€182",
+      type: "RED",
+      tagClass: "tag-red",
+      oldPrice: "€220.00/l",
+      fruits: "🍒 🍫 🍂",
     },
     {
       img: "/wine-new-2.png",
       title: "Cantina Tollo",
       desc: "Montepulciano d'Abruzzo\nDenominazione di Origine Protetta",
       price: "€155",
+      type: "RED",
+      tagClass: "tag-red",
+      oldPrice: "€190.00/l",
+      fruits: "🍇 🍷 🍒",
     },
     {
       img: "/wine-new-3.png",
       title: "Rotari Brut",
       desc: "Metodo Classico\nTrentodoc",
       price: "€190",
+      type: "WHITE",
+      tagClass: "tag-white",
+      oldPrice: "€240.00/l",
+      fruits: "🍏 🍋 🍾",
     },
   ];
 
@@ -216,19 +244,25 @@ export default function Home() {
           <span className="logo-main">Lumina Estate</span>
           <span className="logo-sub">Vineyards</span>
         </div>
-        <nav>
+        <div className={`bottle-burger mobile-nav-toggle ${isNavOpen ? 'is-active' : ''}`} onClick={() => setIsNavOpen(!isNavOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav className={isNavOpen ? "nav-open" : ""}>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Tours</a></li>
-            <li><a href="#">Wineries</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Contact us</a></li>
+            <li><a href="#home" onClick={() => setIsNavOpen(false)}>Home</a></li>
+            <li><a href="#about" onClick={() => setIsNavOpen(false)}>About us</a></li>
+            <li><a href="#wineries" onClick={() => setIsNavOpen(false)}>Wineries</a></li>
+            <li><a href="#products" onClick={() => setIsNavOpen(false)}>Products</a></li>
+            <li><a href="#blog" onClick={() => setIsNavOpen(false)}>Blog</a></li>
+            <li><a href="#contact" onClick={() => setIsNavOpen(false)}>Contact us</a></li>
           </ul>
         </nav>
       </header>
 
-      <main className="hero">
+      <main className="hero" id="home">
         <div className="bg-wine-text" aria-hidden="true">WINE</div>
         <div className="floating-text text-memorable">TIMELESS</div>
         <div className="floating-text text-journeys">VINTAGES</div>
@@ -250,7 +284,7 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="section-two">
+      <section className="section-two" id="about">
         <h2 className="about-heading">UNVEILING THE<br />ESSENCE OF<br />WINE</h2>
         <div className="about-grid">
           <div className="about-text">
@@ -267,7 +301,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-collection">
+      <section className="section-collection" id="wineries">
         <div className="bg-exclusive" aria-hidden="true">exclusive</div>
         
         <div className="collection-header">
@@ -328,60 +362,29 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-finest">
+      <section className="section-finest" id="products">
         <div className="finest-header">
           <h2 className="finest-title">Finest Selection</h2>
           <div className="finest-subtitle">EXPLORE</div>
         </div>
         
         <div className="finest-grid">
-          {/* Card 1 */}
-          <div className="finest-card">
-            <div className="finest-tag tag-white">WHITE</div>
-            <img src="/wine (5).png" alt="Sip Happens 2020" className="finest-img" />
-            <div className="finest-info w-full">
-              <h3 className="finest-name">Sip Happens 2020</h3>
-              <div className="finest-price">€33.00</div>
-              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€44.00/l</div>
-              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍍 🍋 🍒</div>
-              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
-              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
+          {wines.map((wine, idx) => (
+            <div className="finest-card" key={idx}>
+              <div className={`finest-tag ${wine.tagClass}`}>{wine.type}</div>
+              <img src={wine.img} alt={wine.title} className="finest-img" />
+              <div className="finest-info w-full">
+                <h3 className="finest-name">{wine.title}</h3>
+                <div className="finest-price">{wine.price}</div>
+                <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">{wine.oldPrice}</div>
+                <div className="flex gap-2 justify-center mt-2 mb-4 text-base">{wine.fruits}</div>
+                <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
+                <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
+                </div>
               </div>
             </div>
-          </div>
-          
-          {/* Card 2 */}
-          <div className="finest-card">
-            <div className="finest-tag tag-red">RED</div>
-            <img src="/wine (6).png" alt="Velvet Tempest 2019" className="finest-img" />
-            <div className="finest-info w-full">
-              <h3 className="finest-name">Velvet Tempest 2019</h3>
-              <div className="finest-price">€130.00</div>
-              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€173.33/l</div>
-              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍒 🍫 ☕</div>
-              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
-              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
-              </div>
-            </div>
-          </div>
-          
-          {/* Card 3 */}
-          <div className="finest-card">
-            <div className="finest-tag tag-rose">ROSE</div>
-            <img src="/wine (2).png" alt="Sapphire Sunset Rosé" className="finest-img" />
-            <div className="finest-info w-full">
-              <h3 className="finest-name">Sapphire Sunset Rosé</h3>
-              <div className="finest-price">€25.00</div>
-              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€33.33/l</div>
-              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍋 🍫 🍍</div>
-              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
-              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>
