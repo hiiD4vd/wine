@@ -466,7 +466,7 @@ nav ul li a {
 /* Hover Details */
 .slide-details {
     position: absolute;
-    left: 52%; /* Closer to the bottle */
+    left: 65%; /* Moved much further right to prevent overlap with the bottle */
     top: 50%;
     transform: translateY(-50%) translateX(20px);
     width: 250px;
@@ -492,6 +492,11 @@ nav ul li a {
     .swiper-slide-active:hover .slide-bottle {
         transform: translateX(-15px) scale(1.02); /* Subtle shift to avoid huge gaps */
     }
+}
+
+.swiper-slide:not(.swiper-slide-active),
+.swiper-slide:not(.swiper-slide-active) * {
+    pointer-events: none !important; /* Force block all interactions on side bottles */
 }
 
 .swiper-slide-active:hover .slide-details {
@@ -628,4 +633,113 @@ nav ul li a {
 .glass-icon svg {
     width: 20px;
     height: 20px;
+}
+
+/* ──────────────────── SECTION FOUR (FINEST SELECTION) ──────────────────── */
+.section-finest {
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+    padding: 12vh 12vw 12vh 12vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.finest-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.finest-title {
+    font-family: var(--serif-formal);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.finest-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+.finest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .finest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .finest-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.finest-card {
+    background: #eae8e1;
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.finest-card:hover {
+    transform: translateY(-5px);
+}
+
+.finest-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.tag-white { background: #9c7b5f; }
+.tag-red { background: #d76060; }
+.tag-rose { background: #cfa89a; }
+
+.finest-img {
+    height: 320px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    mix-blend-mode: multiply;
+}
+
+.finest-info {
+    text-align: center;
+}
+
+.finest-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 0.4rem;
+}
+
+.finest-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #777;
 }

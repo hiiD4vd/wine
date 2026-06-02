@@ -7,7 +7,6 @@ import { useGSAP } from "@gsap/react";
 import Lenis from "lenis";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 
 if (typeof window !== "undefined") {
@@ -107,6 +106,14 @@ export default function Home() {
         onLeaveBack: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#1a1a1a", duration: 0.3 }),
       });
 
+      // Trigger for Section Finest (Light Background)
+      ScrollTrigger.create({
+        trigger: ".section-finest",
+        start: "top 15%",
+        onEnter: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#1a1a1a", duration: 0.3 }),
+        onLeaveBack: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#ffffff", duration: 0.3 }),
+      });
+
       heroTl.to(".bg-wine-text", { scale: 1.05, ease: "none" }, 0);
       heroTl.to(".circle-btn", { opacity: 0, y: 30, ease: "none" }, 0);
       heroTl.to(".bottle-img", { scale: 1.08, ease: "none" }, 0);
@@ -178,6 +185,24 @@ export default function Home() {
       title: "Grand Vintage Cabernet",
       desc: "Private Reserve - Oak Barrel Aged\nVintage 2018",
       price: "€320",
+    },
+    {
+      img: "/wine-new-1.png",
+      title: "Château Vieux Robin",
+      desc: "Cru Bourgeois - Médoc\nMis en Bouteille au Château",
+      price: "€182",
+    },
+    {
+      img: "/wine-new-2.png",
+      title: "Cantina Tollo",
+      desc: "Montepulciano d'Abruzzo\nDenominazione di Origine Protetta",
+      price: "€155",
+    },
+    {
+      img: "/wine-new-3.png",
+      title: "Rotari Brut",
+      desc: "Metodo Classico\nTrentodoc",
+      price: "€190",
     },
   ];
 
@@ -254,11 +279,9 @@ export default function Home() {
 
         <div className="collection-swiper" ref={swiperContainerRef}>
           <Swiper
-            modules={[Mousewheel]}
             centeredSlides={true}
             loop={true}
             spaceBetween={0}
-            mousewheel={true}
             speed={1200}
             breakpoints={{
               320: { slidesPerView: 1.5 },
@@ -301,6 +324,63 @@ export default function Home() {
               <path d="M12 15a7.5 7.5 0 0 0 7.5-7.5V3a1 1 0 0 0-1-1H5.5a1 1 0 0 0-1 1v4.5A7.5 7.5 0 0 0 12 15z" />
               <path d="M4.5 7.5h15" />
             </svg>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-finest">
+        <div className="finest-header">
+          <h2 className="finest-title">Finest Selection</h2>
+          <div className="finest-subtitle">EXPLORE</div>
+        </div>
+        
+        <div className="finest-grid">
+          {/* Card 1 */}
+          <div className="finest-card">
+            <div className="finest-tag tag-white">WHITE</div>
+            <img src="/wine (5).png" alt="Sip Happens 2020" className="finest-img" />
+            <div className="finest-info w-full">
+              <h3 className="finest-name">Sip Happens 2020</h3>
+              <div className="finest-price">€33.00</div>
+              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€44.00/l</div>
+              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍍 🍋 🍒</div>
+              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
+              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
+              </div>
+            </div>
+          </div>
+          
+          {/* Card 2 */}
+          <div className="finest-card">
+            <div className="finest-tag tag-red">RED</div>
+            <img src="/wine (6).png" alt="Velvet Tempest 2019" className="finest-img" />
+            <div className="finest-info w-full">
+              <h3 className="finest-name">Velvet Tempest 2019</h3>
+              <div className="finest-price">€130.00</div>
+              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€173.33/l</div>
+              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍒 🍫 ☕</div>
+              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
+              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
+              </div>
+            </div>
+          </div>
+          
+          {/* Card 3 */}
+          <div className="finest-card">
+            <div className="finest-tag tag-rose">ROSE</div>
+            <img src="/wine (2).png" alt="Sapphire Sunset Rosé" className="finest-img" />
+            <div className="finest-info w-full">
+              <h3 className="finest-name">Sapphire Sunset Rosé</h3>
+              <div className="finest-price">€25.00</div>
+              <div className="text-xs text-gray-500 mt-0.5 mb-2 line-through">€33.33/l</div>
+              <div className="flex gap-2 justify-center mt-2 mb-4 text-base">🍋 🍫 🍍</div>
+              <button className="w-full border border-gray-400 rounded-full py-2.5 text-sm font-medium hover:bg-black hover:text-white transition-all">Buy now</button>
+              <div className="text-[10px] text-gray-500 mt-3 flex items-center justify-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available for pickup at Lively Store
+              </div>
+            </div>
           </div>
         </div>
       </section>
