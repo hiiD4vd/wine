@@ -264,15 +264,23 @@ nav ul li a {
 }
 
 /* ──────────────────── BOTTLE ──────────────────── */
-.bottle-img {
+.bottle-wrapper {
     position: absolute;
     z-index: 20;
     height: 106vh;
     bottom: -8vh;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.bottle-img {
+    height: 100%;
     object-fit: contain;
     mix-blend-mode: multiply;
+    pointer-events: auto;
 }
 
 .circle-btn {

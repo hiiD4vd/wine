@@ -275,7 +275,9 @@ export default function Home() {
           <div className="frame-image"></div>
         </div>
 
-        <img src="/wine (1).png" alt="Wine Bottle" className="bottle-img" />
+        <div className="bottle-wrapper">
+          <img src="/wine (1).png" alt="Wine Bottle" className="bottle-img" />
+        </div>
 
         <div className="circle-btn" role="button" tabIndex={0}>
           <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
