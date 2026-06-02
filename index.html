@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonya & Jerome - Wine Tours</title>
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /*
          * Using Felipa font for the swashy text (Logo, WINE), 
@@ -95,9 +98,6 @@
             align-items: center;
         }
 
-        /*
-         * WINE text:
-         */
         .bg-wine-text {
             position: absolute;
             font-family: var(--serif-swash);
@@ -117,14 +117,10 @@
             user-select: none;
         }
 
-        /* Fix GSAP wrapper clipping the bottle */
         .pin-spacer {
             z-index: 20 !important;
         }
 
-        /*
-         * FLOATING TEXT
-         */
         .floating-text {
             position: absolute;
             font-family: var(--serif-formal);
@@ -168,15 +164,14 @@
 
         .frame-gap {
             position: absolute;
-            inset: 1.5px; /* Ketebalan garis emas */
-            background: var(--bg); /* Menyamar sebagai warna background halaman */
+            inset: 1.5px;
+            background: var(--bg);
             clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
         }
 
-        /* vineyard photo */
         .frame-image {
             position: absolute;
-            inset: 22px; /* Jarak antara garis emas dan gambar */
+            inset: 22px;
             background: url('garden 2.jpg') center / cover no-repeat fixed;
             clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
         }
@@ -193,7 +188,6 @@
             mix-blend-mode: multiply;
         }
 
-        /* ──────────────────── CIRCLE BUTTON ──────────────────── */
         .circle-btn {
             position: absolute;
             z-index: 5;
@@ -307,89 +301,235 @@
 
         /* ──────────────────── SECTION THREE (COLLECTION) ──────────────────── */
         .section-collection {
-            background: #eae8df; /* Sedikit kontras dari section atasnya */
-            padding: 12vh 10vw;
-            text-align: center;
+            position: relative;
+            background: #11120d; /* Very dark olive/black */
+            min-height: 100vh;
+            padding: 8vh 4vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            color: #f5f4ef;
+        }
+
+        .bg-exclusive {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--serif-swash);
+            font-size: 26vw;
+            color: #ffffff;
+            opacity: 0.03;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+            user-select: none;
+        }
+
+        .collection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+            padding: 0 2vw;
+            margin-bottom: 2rem;
         }
 
         .collection-heading {
-            font-family: var(--serif-formal);
-            font-size: 3.5vw;
-            font-weight: 300;
-            text-transform: uppercase;
-            margin-bottom: 4rem;
-            color: var(--dark);
+            font-family: var(--serif-swash);
+            font-size: 4.5vw;
+            font-weight: 100;
+            margin: 0;
         }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+        .view-all-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .product-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        .view-all-btn:hover {
+            background: #fff;
+            color: #11120d;
         }
 
-        .product-img-wrapper {
+        /* Swiper Styles */
+        .collection-swiper {
             width: 100%;
-            height: 450px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            cursor: none; /* Hide default cursor to use custom drag cursor */
+            padding: 2rem 0;
+        }
+
+        .swiper-slide {
+            width: 35%; /* Increased from 30% to spread the bottles further apart */
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            margin-bottom: 1.8rem;
-            transition: transform 0.4s ease;
-            cursor: pointer;
+            position: relative;
         }
 
-        .product-img-wrapper:hover {
-            transform: translateY(-12px);
+        .swiper-slide-active {
+            z-index: 2;
         }
 
-        .product-img {
-            height: 85%;
+        .slide-bottle {
+            height: 75vh; /* Base height for the giant center bottle */
             object-fit: contain;
-            mix-blend-mode: multiply;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: scale(0.55); /* Side bottles shrink to almost half the size */
+            opacity: 0.25;
         }
 
-        .product-name {
-            font-family: var(--serif-formal);
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
+        .swiper-slide-active .slide-bottle {
+            transform: scale(1); /* Center bottle is at 100% of 75vh */
+            opacity: 1;
         }
 
-        .product-price {
+        /* Hover Details */
+        .slide-details {
+            position: absolute;
+            left: 60%;
+            top: 50%;
+            transform: translateY(-50%) translateX(20px);
+            width: 250px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            text-align: left;
+        }
+
+        .swiper-slide-active:hover .slide-bottle {
+            transform: translateX(-40px) scale(1.05);
+        }
+
+        .swiper-slide-active:hover .slide-details {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+            pointer-events: auto;
+        }
+
+        .slide-title {
             font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            color: var(--gold);
             font-weight: 500;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.5;
             margin-bottom: 1.5rem;
         }
 
-        .add-to-cart {
+        .slide-price {
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            border: 1px solid var(--dark);
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
         }
 
-        .add-to-cart:hover {
-            background: var(--dark);
+        .slide-add-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-add-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5); /* Centered and slightly scaled down initially */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Footer */
+        .collection-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+            padding: 0 2vw;
+            margin-top: auto;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #fff;
+            width: 10%; /* Updated via JS */
+            transition: width 0.3s ease;
+        }
+
+        .glass-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glass-icon svg {
+            width: 20px;
+            height: 20px;
         }
 
     </style>
@@ -459,43 +599,149 @@
 
     <!-- ──────────────────── SECTION THREE: OUR COLLECTION ──────────────────── -->
     <section class="section-collection">
-        <h2 class="collection-heading">Our Collection</h2>
-        <div class="product-grid">
-            
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <img src="wine (2).png" alt="Château Vieux Robin" class="product-img">
-                </div>
-                <h3 class="product-name">Château Vieux Robin</h3>
-                <div class="product-price">$245.00</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <img src="wine (3).png" alt="Domaine Serene" class="product-img">
-                </div>
-                <h3 class="product-name">Domaine Serene</h3>
-                <div class="product-price">$180.00</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <img src="wine (4).png" alt="Grand Cru Classé" class="product-img">
-                </div>
-                <h3 class="product-name">Grand Cru Classé</h3>
-                <div class="product-price">$320.00</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
+        <!-- Huge background text -->
+        <div class="bg-exclusive" aria-hidden="true">exclusive</div>
+        
+        <!-- Header -->
+        <div class="collection-header">
+            <h2 class="collection-heading">Our Wine Collection</h2>
+            <button class="view-all-btn">View All Wines</button>
+        </div>
 
+        <!-- Custom Cursor -->
+        <div class="custom-cursor">Drag</div>
+
+        <!-- Swiper Carousel -->
+        <div class="swiper collection-swiper">
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <img src="wine (1).png" alt="Vento Rosso" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Vento Rosso</h3>
+                        <p class="slide-desc">A vibrant Sardinian rosé with crisp notes of wild strawberry, pink grapefruit, rose petals, and a hint of sea breeze.</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <img src="wine (2).png" alt="Radice Nobile" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Radice Nobile</h3>
+                        <p class="slide-desc">Sardegna IGT - Italy<br>750ML - 14% ALC/VOL</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <img src="wine (3).png" alt="Alta Vigna" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Alta Vigna</h3>
+                        <p class="slide-desc">Cannonau di Sardegna DOC - Italy<br>2021</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <img src="wine (4).png" alt="Grand Cru Classé" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Grand Cru Classé</h3>
+                        <p class="slide-desc">Bordeaux Blend - France<br>2018</p>
+                        <div class="slide-price">€320</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Duplicated slides to fill the carousel up to 10 for demonstration -->
+                <div class="swiper-slide">
+                    <img src="wine (1).png" alt="Vento Rosso" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Vento Rosso</h3>
+                        <p class="slide-desc">A vibrant Sardinian rosé with crisp notes of wild strawberry, pink grapefruit, rose petals, and a hint of sea breeze.</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="wine (2).png" alt="Radice Nobile" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Radice Nobile</h3>
+                        <p class="slide-desc">Sardegna IGT - Italy<br>750ML - 14% ALC/VOL</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="wine (3).png" alt="Alta Vigna" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Alta Vigna</h3>
+                        <p class="slide-desc">Cannonau di Sardegna DOC - Italy<br>2021</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="wine (4).png" alt="Grand Cru Classé" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Grand Cru Classé</h3>
+                        <p class="slide-desc">Bordeaux Blend - France<br>2018</p>
+                        <div class="slide-price">€320</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="wine (1).png" alt="Vento Rosso" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Vento Rosso</h3>
+                        <p class="slide-desc">A vibrant Sardinian rosé with crisp notes of wild strawberry, pink grapefruit, rose petals, and a hint of sea breeze.</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="wine (2).png" alt="Radice Nobile" class="slide-bottle">
+                    <div class="slide-details">
+                        <h3 class="slide-title">Radice Nobile</h3>
+                        <p class="slide-desc">Sardegna IGT - Italy<br>750ML - 14% ALC/VOL</p>
+                        <div class="slide-price">€182</div>
+                        <button class="slide-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Pagination -->
+        <div class="collection-footer">
+            <div class="pagination-wrapper">
+                <span class="current-slide">01</span>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="total-slides">10</span>
+            </div>
+            <div class="glass-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 22h8" />
+                    <path d="M12 15v7" />
+                    <path d="M12 15a7.5 7.5 0 0 0 7.5-7.5V3a1 1 0 0 0-1-1H5.5a1 1 0 0 0-1 1v4.5A7.5 7.5 0 0 0 12 15z" />
+                    <path d="M4.5 7.5h15" />
+                </svg>
+            </div>
         </div>
     </section>
 
-    <!-- ──────────────────── SCRIPT ANIMASI GSAP ──────────────────── -->
+    <!-- ──────────────────── SCRIPT ANIMASI GSAP & SWIPER ──────────────────── -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
@@ -528,7 +774,6 @@
             }
         });
 
-        // B. Frame melebar jadi 100vw dan morphing bersamaan
         heroTl.to(".frame-wrapper", {
             width: "100vw",
             top: "0%",
@@ -546,18 +791,63 @@
             ease: "none"
         }, 0);
 
-        // E. Ganti warna teks
         heroTl.to([".bg-wine-text", ".floating-text", ".logo-main", ".logo-sub", "nav ul li a"], {
             color: "#ffffff",
             ease: "none"
         }, 0);
 
-        // F. Animasi teks WINE dan tombol
         heroTl.to(".bg-wine-text", { scale: 1.05, ease: "none" }, 0);
         heroTl.to(".circle-btn", { opacity: 0, y: 30, ease: "none" }, 0);
-
-        // G. Scale botol
         heroTl.to(".bottle-img", { scale: 1.08, ease: "none" }, 0);
+
+        // 3. SWIPER CAROUSEL INITIALIZATION
+        const swiper = new Swiper('.collection-swiper', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            loop: true, // Enables infinite looping
+            spaceBetween: 0,
+            grabCursor: false, // We rely on custom cursor
+            mousewheel: true, // Allow scrolling to slide
+            speed: 800,
+            on: {
+                slideChange: function () {
+                    // Update Pagination for loop mode
+                    const current = this.realIndex + 1;
+                    const totalSlides = document.querySelectorAll('.collection-swiper .swiper-slide:not(.swiper-slide-duplicate)').length;
+                    document.querySelector('.current-slide').textContent = current.toString().padStart(2, '0');
+                    const progress = (current / totalSlides) * 100;
+                    document.querySelector('.progress-fill').style.width = progress + '%';
+                }
+            }
+        });
+
+        // Initialize pagination
+        const initialTotal = document.querySelectorAll('.collection-swiper .swiper-slide:not(.swiper-slide-duplicate)').length;
+        document.querySelector('.total-slides').textContent = initialTotal.toString().padStart(2, '0');
+        document.querySelector('.progress-fill').style.width = (1 / initialTotal) * 100 + '%';
+
+        // 4. CUSTOM CURSOR LOGIC
+        const customCursor = document.querySelector('.custom-cursor');
+        const swiperContainer = document.querySelector('.collection-swiper');
+
+        // GSAP quickTo for ultra-smooth tracking without jitter
+        let xTo = gsap.quickTo(customCursor, "left", {duration: 0.3, ease: "power3"}),
+            yTo = gsap.quickTo(customCursor, "top", {duration: 0.3, ease: "power3"});
+
+        swiperContainer.addEventListener('mousemove', (e) => {
+            xTo(e.clientX);
+            yTo(e.clientY);
+        });
+
+        swiperContainer.addEventListener('mouseenter', () => {
+            customCursor.style.opacity = '1';
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        swiperContainer.addEventListener('mouseleave', () => {
+            customCursor.style.opacity = '0';
+            customCursor.style.transform = 'translate(-50%, -50%) scale(0.5)';
+        });
 
     </script>
 </body>
