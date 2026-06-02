@@ -40,7 +40,7 @@
 
         /* ──────────────────── HEADER ──────────────────── */
         header {
-            position: fixed; /* Fixed so it doesn't disappear on scroll */
+            position: fixed;
             inset: 0 0 auto 0;
             display: flex;
             justify-content: space-between;
@@ -87,7 +87,7 @@
         /* ──────────────────── HERO ──────────────────── */
         .hero {
             position: relative;
-            z-index: 20; /* THIS FIXES THE BOTTLE CUTOFF! Hero is now on top of section-two */
+            z-index: 20;
             width: 100%;
             height: 100vh;
             display: flex;
@@ -105,10 +105,9 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             font-style: normal;
-            font-size: 26vw;
+            font-size: 23vw;
             color: var(--gold);
-            opacity: 0.8;
-            z-index: 2; /* Sits behind the bottle (20) but in front of the frame (1) */
+            z-index: 2;
             white-space: nowrap;
             top: 50%;
             left: 50%;
@@ -116,6 +115,11 @@
             letter-spacing: 0.10em;
             line-height: 1;
             user-select: none;
+        }
+
+        /* Fix GSAP wrapper clipping the bottle */
+        .pin-spacer {
+            z-index: 20 !important;
         }
 
         /*
@@ -147,7 +151,7 @@
         /* ──────────────────── CENTRE FRAME ──────────────────── */
         .frame-wrapper {
             position: absolute;
-            z-index: 1; /* Lowest z-index so WINE text sits on top of it */
+            z-index: 1;
             width: 26vw;
             top: 8%;
             bottom: -6vh;
@@ -155,27 +159,32 @@
             transform: translateX(-50%);
         }
 
-        /* gold outline */
         .frame-gold-border {
             position: absolute;
-            inset: 0;
+            inset: 0px;
             background: var(--gold);
+            clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
+        }
+
+        .frame-gap {
+            position: absolute;
+            inset: 1.5px; /* Ketebalan garis emas */
+            background: var(--bg); /* Menyamar sebagai warna background halaman */
             clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
         }
 
         /* vineyard photo */
         .frame-image {
             position: absolute;
-            /* Inset completely replaces the need for a white gap div */
-            inset: 4px 4px 0 4px;
-            background: url('garden.jpg') center / cover no-repeat;
+            inset: 22px; /* Jarak antara garis emas dan gambar */
+            background: url('garden 2.jpg') center / cover no-repeat fixed;
             clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
         }
 
         /* ──────────────────── BOTTLE ──────────────────── */
         .bottle-img {
             position: absolute;
-            z-index: 20; /* Highest z-index within hero */
+            z-index: 20;
             height: 106vh;
             bottom: -8vh;
             left: 50%;
@@ -228,6 +237,161 @@
             height: 22px;
             stroke: var(--dark);
         }
+
+        /* ──────────────────── SECTION TWO (ABOUT US) ──────────────────── */
+        .section-two {
+            position: relative;
+            z-index: 10;
+            background: var(--bg);
+            padding: 22vh 12vw 12vh 12vw;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            margin-top: -5vh;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .about-heading {
+            font-family: var(--serif-formal);
+            font-size: 5.5vw;
+            font-weight: 300;
+            text-transform: uppercase;
+            line-height: 1.05;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            font-family: var(--serif-formal);
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .about-divider {
+            border: none;
+            border-top: 1px solid var(--gold);
+            margin: 2rem 0;
+            opacity: 0.6;
+        }
+
+        .offering-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .offering-subtitle {
+            font-family: var(--serif-formal);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #555;
+            padding-top: 1rem;
+        }
+
+        .offering-title {
+            font-family: var(--serif-formal);
+            font-size: 4.5vw;
+            font-weight: 300;
+            text-transform: uppercase;
+            line-height: 1.05;
+        }
+
+        /* ──────────────────── SECTION THREE (COLLECTION) ──────────────────── */
+        .section-collection {
+            background: #eae8df; /* Sedikit kontras dari section atasnya */
+            padding: 12vh 10vw;
+            text-align: center;
+        }
+
+        .collection-heading {
+            font-family: var(--serif-formal);
+            font-size: 3.5vw;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin-bottom: 4rem;
+            color: var(--dark);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            margin-bottom: 1.8rem;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .product-img-wrapper:hover {
+            transform: translateY(-12px);
+        }
+
+        .product-img {
+            height: 85%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .product-name {
+            font-family: var(--serif-formal);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-price {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .add-to-cart {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--dark);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark);
+        }
+
+        .add-to-cart:hover {
+            background: var(--dark);
+            color: #fff;
+        }
+
     </style>
 </head>
 
@@ -257,11 +421,11 @@
 
         <div class="frame-wrapper">
             <div class="frame-gold-border"></div>
-            <!-- Removed frame-gap entirely to fix the white block issue -->
+            <div class="frame-gap"></div>
             <div class="frame-image"></div>
         </div>
 
-        <img src="wine (1).jpg" alt="Wine Bottle" class="bottle-img">
+        <img src="wine (1).png" alt="Wine Bottle" class="bottle-img">
 
         <div class="circle-btn" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
@@ -272,11 +436,60 @@
         </div>
     </main>
 
-    <!-- SECTION KEDUA -->
-    <section class="section-two"
-        style="position: relative; z-index: 10; background: var(--bg); padding: 15vh 10vw; text-align: center; border-top-left-radius: 40px; border-top-right-radius: 40px; margin-top: -5vh;">
-        <h2 style="font-family: var(--serif-formal); font-size: 4vw; font-weight: 300; text-transform: uppercase;">
-            UNVEILING THE<br>ESSENCE OF</h2>
+    <!-- ──────────────────── SECTION TWO: ABOUT US ──────────────────── -->
+    <section class="section-two">
+        <h2 class="about-heading">UNVEILING THE<br>ESSENCE OF<br>WINE</h2>
+        
+        <div class="about-grid">
+            <div class="about-text">
+                We believe that a wine tour should be more than just a sip-and-see experience. It should be a journey that engages, educates, and entertains.
+            </div>
+            <div class="about-text">
+                Our approach is a perfect blend of Sonya's vivacious personality and Jerome's expert knowledge. Together, they create an atmosphere where learning about wine becomes an adventure.
+            </div>
+        </div>
+
+        <hr class="about-divider">
+
+        <div class="offering-grid">
+            <div class="offering-subtitle">WE OFFERING</div>
+            <div class="offering-title">UNIQUE<br>BLEND OF<br>EDUCATION.</div>
+        </div>
+    </section>
+
+    <!-- ──────────────────── SECTION THREE: OUR COLLECTION ──────────────────── -->
+    <section class="section-collection">
+        <h2 class="collection-heading">Our Collection</h2>
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="wine (2).png" alt="Château Vieux Robin" class="product-img">
+                </div>
+                <h3 class="product-name">Château Vieux Robin</h3>
+                <div class="product-price">$245.00</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="wine (3).png" alt="Domaine Serene" class="product-img">
+                </div>
+                <h3 class="product-name">Domaine Serene</h3>
+                <div class="product-price">$180.00</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="wine (4).png" alt="Grand Cru Classé" class="product-img">
+                </div>
+                <h3 class="product-name">Grand Cru Classé</h3>
+                <div class="product-price">$320.00</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+        </div>
     </section>
 
     <!-- ──────────────────── SCRIPT ANIMASI GSAP ──────────────────── -->
@@ -304,20 +517,18 @@
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0, 0);
 
-        // 2. TIMELINE ANIMASI UTAMA (CLIP-PATH EXPANSION)
+        // 2. TIMELINE ANIMASI UTAMA
         const heroTl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".hero",
                 start: "top top",
                 end: "+=150%",
-                pin: true,     
-                scrub: 1,      
+                pin: true,
+                scrub: 1,
             }
         });
 
-        // Removed setting WINE to zIndex 4 here, it's already properly set in CSS.
-
-        // B. Frame melebar jadi 100vw dan tinggi full 100vh
+        // B. Frame melebar jadi 100vw dan morphing bersamaan
         heroTl.to(".frame-wrapper", {
             width: "100vw",
             top: "0%",
@@ -325,29 +536,27 @@
             ease: "none"
         }, 0);
 
-        // C. Bentuk potongan segidelapan Morphing jadi persegi panjang penuh
-        heroTl.to([".frame-gold-border", ".frame-image"], {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 0%)",
+        heroTl.to([".frame-gold-border", ".frame-gap", ".frame-image"], {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%)",
             ease: "none"
         }, 0);
 
-        // D. Hilangkan gap inset agar gambar menyentuh ujung layar sempurna
-        heroTl.to(".frame-image", {
-            top: "0px", left: "0px", right: "0px", bottom: "0px",
+        heroTl.to([".frame-gap", ".frame-image"], {
+            inset: "0px",
             ease: "none"
         }, 0);
 
-        // E. Ganti warna semua teks menjadi putih karena background gambar mulai menutupi layar
+        // E. Ganti warna teks
         heroTl.to([".bg-wine-text", ".floating-text", ".logo-main", ".logo-sub", "nav ul li a"], {
             color: "#ffffff",
             ease: "none"
         }, 0);
 
-        // F. Animasi kecil tambahan: teks WINE sedikit membesar, lingkaran cek turs hilang
+        // F. Animasi teks WINE dan tombol
         heroTl.to(".bg-wine-text", { scale: 1.05, ease: "none" }, 0);
         heroTl.to(".circle-btn", { opacity: 0, y: 30, ease: "none" }, 0);
 
-        // G. Botol wine di tengah beri efek slight scale agar lebih dramatis
+        // G. Scale botol
         heroTl.to(".bottle-img", { scale: 1.08, ease: "none" }, 0);
 
     </script>
