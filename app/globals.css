@@ -274,12 +274,12 @@ nav ul li a {
     display: flex;
     justify-content: center;
     pointer-events: none;
+    mix-blend-mode: multiply;
 }
 
 .bottle-img {
     height: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply;
     pointer-events: auto;
 }
 
