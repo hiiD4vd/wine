@@ -239,33 +239,35 @@ export default function Home() {
 
   return (
     <div ref={container} className="relative w-full overflow-x-hidden">
-      <header>
-        <div className="logo">
-          <span className="logo-main">Lumina Estate</span>
-          <span className="logo-sub">Vineyards</span>
+      <header className="!fixed !inset-0 !bottom-auto !flex !flex-row !justify-between !items-center !px-6 md:!px-16 !py-6 md:!py-9 !z-[100] w-full">
+        <div className="logo flex flex-col items-start gap-1">
+          <span className="logo-main font-serif-swash text-[2.2rem] font-thin leading-none tracking-normal">Lumina Estate</span>
+          <span className="logo-sub font-sans text-[0.6rem] tracking-[3.5px] text-gray-500 uppercase mt-[7px]">Vineyards</span>
         </div>
-        <div className={`bottle-burger mobile-nav-toggle ${isNavOpen ? 'is-active' : ''}`} onClick={() => setIsNavOpen(!isNavOpen)}>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+        
+        <div className="flex md:hidden flex-col items-center gap-[5px] cursor-pointer z-[200] w-[34px]" onClick={() => setIsNavOpen(!isNavOpen)}>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '10px' : '10px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'translate-y-[8px] rotate-45' : ''}`} style={{ width: isNavOpen ? '30px' : '14px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? '-translate-y-[8px] -rotate-45' : ''}`} style={{ width: isNavOpen ? '30px' : '24px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '30px' : '30px' }}></span>
         </div>
-        <nav className={isNavOpen ? "nav-open" : ""}>
-          <ul>
-            <li><a href="#home" onClick={() => setIsNavOpen(false)}>Home</a></li>
-            <li><a href="#about" onClick={() => setIsNavOpen(false)}>About us</a></li>
-            <li><a href="#wineries" onClick={() => setIsNavOpen(false)}>Wineries</a></li>
-            <li><a href="#products" onClick={() => setIsNavOpen(false)}>Products</a></li>
-            <li><a href="#blog" onClick={() => setIsNavOpen(false)}>Blog</a></li>
-            <li><a href="#contact" onClick={() => setIsNavOpen(false)}>Contact us</a></li>
+        
+        <nav className={`!absolute md:!static !top-[85px] !right-6 md:!right-0 !w-auto !h-auto !bg-[#f5f4ef]/95 md:!bg-transparent !backdrop-blur-md md:!backdrop-blur-none !z-[150] transition-all duration-300 !px-8 !py-6 md:!p-0 !rounded-3xl md:!rounded-none !shadow-2xl md:!shadow-none ${isNavOpen ? '!opacity-100 !scale-100 !pointer-events-auto' : '!opacity-0 !scale-95 !pointer-events-none md:!opacity-100 md:!scale-100 md:!pointer-events-auto'}`}>
+          <ul className="!flex !flex-col md:!flex-row !items-end md:!items-center !gap-6 md:!gap-[2.8rem] list-none">
+            <li><a href="#home" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>Home</a></li>
+            <li><a href="#about" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>About us</a></li>
+            <li><a href="#wineries" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>Wineries</a></li>
+            <li><a href="#products" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>Products</a></li>
+            <li><a href="#blog" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>Blog</a></li>
+            <li><a href="#contact" className="!text-[#1a1a1a] md:text-current !text-xl md:!text-[0.82rem] font-serif-formal md:font-sans font-medium tracking-wide md:tracking-[0.3px] hover:!text-[#d4a940] transition-colors" onClick={() => setIsNavOpen(false)}>Contact us</a></li>
           </ul>
         </nav>
       </header>
 
       <main className="hero" id="home">
-        <div className="bg-wine-text" aria-hidden="true">WINE</div>
-        <div className="floating-text text-memorable">TIMELESS</div>
-        <div className="floating-text text-journeys">VINTAGES</div>
+        <div className="bg-wine-text !text-[22vw] md:!text-[23vw]" aria-hidden="true">WINE</div>
+        <div className="floating-text text-memorable !top-[25%] !left-[5%] md:!top-[20%] md:!left-[8%] !text-[8vw] md:!text-[4vw]">TIMELESS</div>
+        <div className="floating-text text-journeys !bottom-[25%] !right-[5%] md:!bottom-[18%] md:!right-[8%] !text-[8vw] md:!text-[4vw]">VINTAGES</div>
 
         <div className="frame-wrapper">
           <div className="frame-gold-border"></div>
