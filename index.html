@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonya & Jerome - Wine Tours</title>
+
+    <style>
+        /*
+         * Using Felipa font for the swashy text (Logo, WINE), 
+         * and Cormorant Garamond for the formal, non-swashy text.
+         */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Felipa&family=Inter:wght@300;400;500&display=swap');
+
+        :root {
+            --bg: #f5f4ef;
+            --gold: #d4a940;
+            --dark: #1a1a1a;
+            --serif-swash: 'Felipa', cursive, serif;
+            --serif-formal: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            overflow-x: hidden;
+            color: var(--dark);
+        }
+
+        /* ──────────────────── HEADER ──────────────────── */
+        header {
+            position: fixed; /* Fixed so it doesn't disappear on scroll */
+            inset: 0 0 auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2.2rem 4rem;
+            z-index: 100;
+        }
+
+        .logo-main {
+            font-family: var(--serif-swash);
+            font-size: 2.2rem;
+            font-weight: 100;
+            font-style: normal;
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .logo-sub {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 3.5px;
+            color: #666;
+            margin-top: 7px;
+            text-transform: uppercase;
+            font-style: normal;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+            padding-top: 0.6rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* ──────────────────── HERO ──────────────────── */
+        .hero {
+            position: relative;
+            z-index: 20; /* THIS FIXES THE BOTTLE CUTOFF! Hero is now on top of section-two */
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*
+         * WINE text:
+         */
+        .bg-wine-text {
+            position: absolute;
+            font-family: var(--serif-swash);
+            font-weight: 100;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-style: normal;
+            font-size: 26vw;
+            color: var(--gold);
+            opacity: 0.8;
+            z-index: 2; /* Sits behind the bottle (20) but in front of the frame (1) */
+            white-space: nowrap;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 0.10em;
+            line-height: 1;
+            user-select: none;
+        }
+
+        /*
+         * FLOATING TEXT
+         */
+        .floating-text {
+            position: absolute;
+            font-family: var(--serif-formal);
+            font-size: 4vw;
+            font-weight: 400;
+            font-style: normal;
+            color: var(--dark);
+            z-index: 4;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .text-memorable {
+            top: 20%;
+            left: 8%;
+        }
+
+        .text-journeys {
+            bottom: 18%;
+            right: 8%;
+        }
+
+        /* ──────────────────── CENTRE FRAME ──────────────────── */
+        .frame-wrapper {
+            position: absolute;
+            z-index: 1; /* Lowest z-index so WINE text sits on top of it */
+            width: 26vw;
+            top: 8%;
+            bottom: -6vh;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* gold outline */
+        .frame-gold-border {
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
+        }
+
+        /* vineyard photo */
+        .frame-image {
+            position: absolute;
+            /* Inset completely replaces the need for a white gap div */
+            inset: 4px 4px 0 4px;
+            background: url('garden.jpg') center / cover no-repeat;
+            clip-path: polygon(26% 0%, 74% 0%, 100% 11%, 100% 100%, 0% 100%, 0% 11%);
+        }
+
+        /* ──────────────────── BOTTLE ──────────────────── */
+        .bottle-img {
+            position: absolute;
+            z-index: 20; /* Highest z-index within hero */
+            height: 106vh;
+            bottom: -8vh;
+            left: 50%;
+            transform: translateX(-50%);
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        /* ──────────────────── CIRCLE BUTTON ──────────────────── */
+        .circle-btn {
+            position: absolute;
+            z-index: 5;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            left: 37vw;
+            bottom: 16%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .circle-btn:hover {
+            transform: translateX(-50%) scale(1.06);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .circle-btn .btn-label {
+            font-family: var(--serif-formal);
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-style: normal;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-top: 7px;
+            letter-spacing: 0.03em;
+        }
+
+        .circle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <span class="logo-main">Sonya & Jerome</span>
+            <span class="logo-sub">Wine Tours</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Tours</a></li>
+                <li><a href="#">Wineries</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="bg-wine-text" aria-hidden="true">WINE</div>
+        <div class="floating-text text-memorable">MEMORABLE</div>
+        <div class="floating-text text-journeys">JOURNEYS</div>
+
+        <div class="frame-wrapper">
+            <div class="frame-gold-border"></div>
+            <!-- Removed frame-gap entirely to fix the white block issue -->
+            <div class="frame-image"></div>
+        </div>
+
+        <img src="wine (1).jpg" alt="Wine Bottle" class="bottle-img">
+
+        <div class="circle-btn" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+            </svg>
+            <span class="btn-label">CHECK<br>TOURS</span>
+        </div>
+    </main>
+
+    <!-- SECTION KEDUA -->
+    <section class="section-two"
+        style="position: relative; z-index: 10; background: var(--bg); padding: 15vh 10vw; text-align: center; border-top-left-radius: 40px; border-top-right-radius: 40px; margin-top: -5vh;">
+        <h2 style="font-family: var(--serif-formal); font-size: 4vw; font-weight: 300; text-transform: uppercase;">
+            UNVEILING THE<br>ESSENCE OF</h2>
+    </section>
+
+    <!-- ──────────────────── SCRIPT ANIMASI GSAP ──────────────────── -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Setup Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // 2. TIMELINE ANIMASI UTAMA (CLIP-PATH EXPANSION)
+        const heroTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "+=150%",
+                pin: true,     
+                scrub: 1,      
+            }
+        });
+
+        // Removed setting WINE to zIndex 4 here, it's already properly set in CSS.
+
+        // B. Frame melebar jadi 100vw dan tinggi full 100vh
+        heroTl.to(".frame-wrapper", {
+            width: "100vw",
+            top: "0%",
+            bottom: "0%",
+            ease: "none"
+        }, 0);
+
+        // C. Bentuk potongan segidelapan Morphing jadi persegi panjang penuh
+        heroTl.to([".frame-gold-border", ".frame-image"], {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 0%)",
+            ease: "none"
+        }, 0);
+
+        // D. Hilangkan gap inset agar gambar menyentuh ujung layar sempurna
+        heroTl.to(".frame-image", {
+            top: "0px", left: "0px", right: "0px", bottom: "0px",
+            ease: "none"
+        }, 0);
+
+        // E. Ganti warna semua teks menjadi putih karena background gambar mulai menutupi layar
+        heroTl.to([".bg-wine-text", ".floating-text", ".logo-main", ".logo-sub", "nav ul li a"], {
+            color: "#ffffff",
+            ease: "none"
+        }, 0);
+
+        // F. Animasi kecil tambahan: teks WINE sedikit membesar, lingkaran cek turs hilang
+        heroTl.to(".bg-wine-text", { scale: 1.05, ease: "none" }, 0);
+        heroTl.to(".circle-btn", { opacity: 0, y: 30, ease: "none" }, 0);
+
+        // G. Botol wine di tengah beri efek slight scale agar lebih dramatis
+        heroTl.to(".bottle-img", { scale: 1.08, ease: "none" }, 0);
+
+    </script>
+</body>
+
+</html>
