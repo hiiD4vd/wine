@@ -246,10 +246,10 @@ export default function Home() {
         </div>
         
         <div className="flex md:hidden flex-col items-center gap-[5px] cursor-pointer z-[200] w-[34px]" onClick={() => setIsNavOpen(!isNavOpen)}>
-          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '10px' : '10px' }}></span>
-          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'translate-y-[8px] rotate-45' : ''}`} style={{ width: isNavOpen ? '30px' : '14px' }}></span>
-          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? '-translate-y-[8px] -rotate-45' : ''}`} style={{ width: isNavOpen ? '30px' : '24px' }}></span>
-          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '30px' : '30px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '10px' : '12px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'translate-y-[8px] rotate-45' : ''}`} style={{ width: isNavOpen ? '32px' : '12px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? '-translate-y-[8px] -rotate-45' : ''}`} style={{ width: isNavOpen ? '32px' : '32px' }}></span>
+          <span className={`bg-current h-[3px] rounded-full transition-all duration-300 ${isNavOpen ? 'opacity-0' : ''}`} style={{ width: isNavOpen ? '32px' : '32px' }}></span>
         </div>
         
         <nav className={`!absolute md:!static !top-[85px] !right-6 md:!right-0 !w-auto !h-auto !bg-[#f5f4ef]/95 md:!bg-transparent !backdrop-blur-md md:!backdrop-blur-none !z-[150] transition-all duration-300 !px-8 !py-6 md:!p-0 !rounded-3xl md:!rounded-none !shadow-2xl md:!shadow-none ${isNavOpen ? '!opacity-100 !scale-100 !pointer-events-auto' : '!opacity-0 !scale-95 !pointer-events-none md:!opacity-100 md:!scale-100 md:!pointer-events-auto'}`}>
