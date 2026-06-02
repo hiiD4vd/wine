@@ -83,13 +83,29 @@ export default function Home() {
       );
 
       heroTl.to(
-        [".bg-wine-text", ".floating-text", ".logo-main", ".logo-sub", "nav ul li a"],
+        [".bg-wine-text", ".floating-text", "header", ".logo-main", "nav ul li a"],
         {
           color: "#ffffff",
           ease: "none",
         },
         0
       );
+
+      // Trigger for Section Two (Light Background)
+      ScrollTrigger.create({
+        trigger: ".section-two",
+        start: "top 15%",
+        onEnter: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#1a1a1a", duration: 0.3 }),
+        onLeaveBack: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#ffffff", duration: 0.3 }),
+      });
+
+      // Trigger for Section Collection (Dark Background)
+      ScrollTrigger.create({
+        trigger: ".section-collection",
+        start: "top 15%",
+        onEnter: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#ffffff", duration: 0.3 }),
+        onLeaveBack: () => gsap.to(["header", ".logo-main", "nav ul li a"], { color: "#1a1a1a", duration: 0.3 }),
+      });
 
       heroTl.to(".bg-wine-text", { scale: 1.05, ease: "none" }, 0);
       heroTl.to(".circle-btn", { opacity: 0, y: 30, ease: "none" }, 0);
@@ -239,12 +255,15 @@ export default function Home() {
         <div className="collection-swiper" ref={swiperContainerRef}>
           <Swiper
             modules={[Mousewheel]}
-            slidesPerView="auto"
             centeredSlides={true}
             loop={true}
             spaceBetween={0}
             mousewheel={true}
             speed={1200}
+            breakpoints={{
+              320: { slidesPerView: 1.5 },
+              768: { slidesPerView: 3 }
+            }}
             onSlideChange={(swiper) => {
               setCurrentSlide(swiper.realIndex + 1);
             }}
