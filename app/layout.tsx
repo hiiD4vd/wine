@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lumina Estate | Vineyards",
     description: "Unveiling the essence of fine wine at Lumina Estate Vineyards.",
-    url: "https://wine-opal-five.vercel.app/",
+    url: "https://wine-lokal.vercel.app/",
     siteName: "Lumina Estate",
     images: [
       {
-        url: "https://wine-opal-five.vercel.app/banner.jpg",
+        url: "https://wine-lokal.vercel.app/banner.jpg",
         width: 1200,
         height: 630,
         alt: "Lumina Estate Vineyards",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lumina Estate | Vineyards",
     description: "Unveiling the essence of fine wine at Lumina Estate Vineyards.",
-    images: ["https://wine-opal-five.vercel.app/banner.jpg"],
+    images: ["https://wine-lokal.vercel.app/banner.jpg"],
   },
 };
 
